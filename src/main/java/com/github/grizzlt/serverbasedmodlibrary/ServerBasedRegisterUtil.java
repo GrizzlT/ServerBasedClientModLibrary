@@ -27,16 +27,28 @@ public class ServerBasedRegisterUtil
         this.commandRegister = new CommandRegister();
     }
 
+    /**
+     * Don't forget to initialize the mod once the MinecraftForge EVENT_BUS is loaded
+     */
     public void Init()
     {
         MinecraftForge.EVENT_BUS.register(this);
     }
 
+    /**
+     * Subscribes an object like you normally would to the EVENT_BUS
+     * but only invokes the subscribed methods when serverQualifier is satisfied
+     * @param subscriber The object that holds the methods annotated by @SubscribeEvent which subscribe to specific events
+     */
     public void registerToEventBus(Object subscriber)
     {
         subscriberRegister.register(subscriber);
     }
 
+    /**
+     * Registers a client command that is only visible on servers that qualify to serverQualifier
+     * @param command
+     */
     public void registerCommand(ICommand command)
     {
         commandRegister.register(command);
