@@ -12,9 +12,9 @@ This library answers those questions in two ways:
 
 ## Getting Started (for developers of course)
 This library can be added to your project using JitPack.
-[![](https://jitpack.io/v/Grizzlt/ServerBasedClientModLibrary.svg)](https://jitpack.io/#ThomasVDP/MinecraftServerModsFoundation)
+[![](https://jitpack.io/v/Grizzlt/ServerBasedClientModLibrary.svg)](https://jitpack.io/#Grizzlt/ServerBasedClientModLibrary)
 
-Make sure to have a `ServerBasedRegisterUtil` instance somewhere. Also make sure to call the `Init`-method after the `MinecraftForge.EVENT_BUS` has been loaded (nearly instantly).
+Make sure to have a `ServerBasedRegisterUtil` instance somewhere. Also make sure to call that instance's `Init`-method after the `MinecraftForge.EVENT_BUS` has been loaded (nearly instantly).
 Use `registerToEventBus()` and `registerCommand()` to register the necessary listeners.
 
 
