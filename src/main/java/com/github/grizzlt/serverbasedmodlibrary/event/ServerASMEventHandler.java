@@ -45,7 +45,7 @@ public class ServerASMEventHandler extends ASMEventHandler
         String eventType = Type.getInternalName(callback.getParameterTypes()[0]);
 
         String mainClassOwner = ServerBasedRegisterUtil.class.getName();
-        mainClassOwner = mainClass.replace('.', '/');
+        mainClassOwner = mainClassOwner.replace('.', '/');
 
         /*
         System.out.println("Name:     " + name);
