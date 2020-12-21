@@ -1,5 +1,6 @@
 package com.github.grizzlt.serverbasedmodlibrary.event;
 
+import com.github.grizzlt.serverbasedmodlibrary.ServerBasedRegisterUtil;
 import com.google.common.collect.Maps;
 import net.minecraftforge.fml.common.ModContainer;
 import net.minecraftforge.fml.common.eventhandler.ASMEventHandler;
@@ -43,6 +44,9 @@ public class ServerASMEventHandler extends ASMEventHandler
         String instType = Type.getInternalName(callback.getDeclaringClass());
         String eventType = Type.getInternalName(callback.getParameterTypes()[0]);
 
+        String mainClassOwner = ServerBasedRegisterUtil.class.getName();
+        mainClassOwner = mainClass.replace('.', '/');
+
         /*
         System.out.println("Name:     " + name);
         System.out.println("Desc:     " + desc);
@@ -72,7 +76,7 @@ public class ServerASMEventHandler extends ASMEventHandler
         {
             mv = cw.visitMethod(ACC_PUBLIC, "invoke", HANDLER_FUNC_DESC, null, null);
             mv.visitCode();
-            mv.visitFieldInsn(GETSTATIC, "com/github/grizzlt/serverbasedmodlibrary/ServerBasedRegisterUtil", "connectedToServer", "Z");
+            mv.visitFieldInsn(GETSTATIC, mainClassOwner, "connectedToServer", "Z");
             Label label = new Label();
             mv.visitJumpInsn(IFEQ, label);
             mv.visitVarInsn(ALOAD, 0);
