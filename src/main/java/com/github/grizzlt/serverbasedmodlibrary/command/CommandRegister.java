@@ -1,31 +1,15 @@
 package com.github.grizzlt.serverbasedmodlibrary.command;
 
 import com.github.grizzlt.serverbasedmodlibrary.ServerBasedRegisterUtil;
-import com.google.common.collect.Lists;
-import net.minecraft.command.CommandHandler;
 import net.minecraft.command.ICommand;
 import net.minecraftforge.client.ClientCommandHandler;
 
-import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 public class CommandRegister
 {
     private final Map<String, ICommand> commandSet = new HashMap<>();
-
-    private Field commandSetField;
-
-    public CommandRegister()
-    {
-        try {
-            commandSetField = Lists.newArrayList(CommandHandler.class.getDeclaredFields()).stream().filter(field -> field.getType().equals(Set.class)).findFirst().orElseThrow(() -> new IllegalArgumentException("CommandSet was not found in CommandManager!"));
-            commandSetField.setAccessible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public void register(ICommand command)
     {
@@ -44,18 +28,18 @@ public class CommandRegister
 
     public void clean()
     {
-        if (commandSet.isEmpty()) return;
-
-        try {
-            ((Set<ICommand>)commandSetField.get(ClientCommandHandler.instance)).removeAll(commandSet.values());
-        } catch (IllegalAccessException e)
+        for (ICommand icommand : this.commandSet.values())
         {
-            e.printStackTrace();
+            ClientCommandHandler.instance.getCommands().remove(icommand.getCommandName());
+
+            for (String s : icommand.getCommandAliases())
+            {
+                if (!icommand.getCommandName().equals(s))
+                {
+                    ClientCommandHandler.instance.getCommands().remove(s);
+                }
+            }
         }
-        commandSet.forEach((name, command) -> {
-            ClientCommandHandler.instance.getCommands().remove(command.getCommandName());
-            command.getCommandAliases().forEach(alias -> ClientCommandHandler.instance.getCommands().remove(alias));
-        });
     }
 
     public void addCommands()

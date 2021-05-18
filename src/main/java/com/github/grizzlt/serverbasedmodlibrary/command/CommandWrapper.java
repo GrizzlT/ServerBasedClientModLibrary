@@ -1,5 +1,6 @@
 package com.github.grizzlt.serverbasedmodlibrary.command;
 
+import com.github.grizzlt.serverbasedmodlibrary.ServerBasedRegisterUtil;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
@@ -38,8 +39,9 @@ public class CommandWrapper implements ICommand
     }
 
     @Override
-    public boolean canCommandSenderUseCommand(ICommandSender sender) {
-        return true;
+    public boolean canCommandSenderUseCommand(ICommandSender sender)
+    {
+        return ServerBasedRegisterUtil.connectedToServer;
     }
 
     @Override
