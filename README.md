@@ -2,8 +2,8 @@
 This is a library to automatically enable and disable *client-side* mods on certain servers.
 
 ## Main idea
-Don't you sometimes have that feeling of missing features on a server?
-And wouldn't developers of such features want them to only be active on certain servers?
+Don't you sometimes have that feeling of missing certain features on a server?
+And wouldn't it be convenient to have very specific features only active on very specific servers?
 
 This library answers those questions in two ways:
 
